@@ -1,0 +1,11 @@
+.ItemNoActive {
+    font-weight: bold;
+
+}
+.ItemActive {
+    text-decoration: line-through;
+}
+
+.Active {
+    background: chartreuse;
+}
