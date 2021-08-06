@@ -1,7 +1,19 @@
+.ViewTodo {
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+}
+
+.FooterTodo {
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+}
+
 .ItemNoActive {
     font-weight: bold;
-
 }
+
 .ItemActive {
     text-decoration: line-through;
 }
