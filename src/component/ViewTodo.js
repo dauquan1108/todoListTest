@@ -23,23 +23,13 @@ class ViewTodo extends Component {
     event.preventDefault();
   };
 
-  onDelete = () => {
-    const { item, onDeleteItem } = this.props;
-    onDeleteItem(item.id);
-  };
-
-  checkStatus = () => {
-    const { onCheckStatus, item } = this.props;
-    onCheckStatus(item.id);
-  };
-
   render() {
-    const { value, status } = this.state;
-    const { item, editTodo, onDeleteItem, statusItem, name } = this.props;
+    const { value } = this.state;
+    const {statusItem, onCheckStatus, onDeleteItem,item } = this.props;
     console.log(value);
     return (
       <div className="ViewTodo">
-        <button onClick={this.checkStatus}>check</button>
+        <button onClick={()=>onCheckStatus(item.id)}>check</button>
         <form onSubmit={this.handleSubmit}>
           <input
             className={statusItem ? "ItemActive" : "ItemNoActive"}
@@ -48,7 +38,7 @@ class ViewTodo extends Component {
             onChange={this.handleChange}
           />
         </form>
-        <button onClick={this.onDelete}>Xóa</button>
+        <button onClick={()=>onDeleteItem(item.id)}>Xóa</button>
       </div>
     );
   }

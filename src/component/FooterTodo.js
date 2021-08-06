@@ -8,6 +8,7 @@ class FooterTodo extends Component {
       onShow: "All",
     };
   }
+
   onActive = (event) => {
     const { onShowActive } = this.props;
     onShowActive(event);
@@ -15,13 +16,10 @@ class FooterTodo extends Component {
       onShow: event,
     });
   };
-  onClearAllItem = () => {
-    const { onClearAllItem } = this.props;
-    onClearAllItem();
-  };
+
   render() {
     const { onShow } = this.state;
-    const { countTodo } = this.props;
+    const { countTodo, onClearAllItem } = this.props;
     return (
       <div className="FooterTodo">
         <p>{countTodo}</p>
@@ -43,7 +41,7 @@ class FooterTodo extends Component {
         >
           Completed
         </p>
-        <p onClick={this.onClearAllItem}>ClearActive</p>
+        <p onClick={()=>onClearAllItem()}>ClearActive</p>
       </div>
     );
   }

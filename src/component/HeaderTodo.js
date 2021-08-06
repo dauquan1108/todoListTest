@@ -6,12 +6,14 @@ class HeaderTodo extends Component {
     this.state = {
       value: "",
     };
-  }
+  };
+
   handleChange = (event) => {
     this.setState({
       value: event.target.value,
     });
   };
+
   handleSubmit = (event) => {
     const { value } = this.state;
     const { addTodo } = this.props;

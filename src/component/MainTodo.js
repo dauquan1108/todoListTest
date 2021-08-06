@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 
+// style
 import "../component/style/styleViewTodo.css";
+
 // id
 import { v4 as uuIdv4 } from "uuid";
 
@@ -8,6 +10,7 @@ import { v4 as uuIdv4 } from "uuid";
 import HeaderTodo from "./HeaderTodo";
 import ViewTodo from "./ViewTodo";
 import FooterTodo from "./FooterTodo";
+
 class MainTodo extends Component {
   constructor(props) {
     super(props);
@@ -19,9 +22,10 @@ class MainTodo extends Component {
       ],
       viewTodoList: [],
       showActive: "All",
-      value: "",
+      text: "",
     };
-  }
+  };
+
   static getDerivedStateFromProps(nextProps, prevState) {
     const { showActive, listTodo } = prevState;
     let viewTodoList = [...listTodo];
@@ -38,18 +42,27 @@ class MainTodo extends Component {
         break;
       }
     }
-
+    const {text} = prevState;
+    const searchTodo = viewTodoList.filter((item) => {
+      return item.name.toLowerCase().indexOf(text.toLocaleLowerCase()) !== -1;
+    });
     return {
-      viewTodoList,
+      searchTodo,
     };
+
   }
 
+
+  // them moi
   addTodo = (value) => {
     const { listTodo } = this.state;
     this.setState({
       listTodo: [{ id: uuIdv4(), name: value, status: false }, ...listTodo],
     });
   };
+
+
+  // sua
   editTodo = (id, value) => {
     const { listTodo } = this.state;
     listTodo.forEach((item) => {
@@ -61,13 +74,14 @@ class MainTodo extends Component {
       listTodo,
     });
   };
+
+  //delete
   onDeleteItem = (id) => {
-    const { listTodo } = this.state;
-    const listTodo = listTodo.filter((e) => e.id !== id);
-    this.setState({
-      listTodo,
-    });
+    this.setState((state)=> ({
+      listTodo: state.listTodo.filter((item) => item.id !== id),
+    }));
   };
+
   onCheckStatus = (id) => {
     const { listTodo } = this.state;
     listTodo.forEach((item) => {
@@ -101,23 +115,21 @@ class MainTodo extends Component {
 
   handleChange = (event) => {
     this.setState({
-      value: event.target.value,
+      text: event.target.value,
     });
   };
+
   handleSubmit = (event) => {
-    event.preventDefault();
     this.setState({
-      value: "",
+      text: "",
     });
+    event.preventDefault();
   };
+
   render() {
-    const { viewTodoList, status, value, listTodo } = this.state;
-    console.log(listTodo);
+    const { status, text, listTodo, searchTodo } = this.state;
     const count = this.countNumberTodo();
-    const search = [...viewTodoList];
-    const searchTodo = search.filter((item) => {
-      return item.name.toLowerCase().indexOf(value.toLocaleLowerCase()) !== -1;
-    });
+    console.log(listTodo);
 
     return (
       <div className="MainTodo">
@@ -125,7 +137,7 @@ class MainTodo extends Component {
           <form onSubmit={this.handleSubmit}>
             <input
               type="text"
-              value={value}
+              value={text}
               onChange={this.handleChange}
               placeholder="Tìm kiếm"
             />
