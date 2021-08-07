@@ -10,6 +10,33 @@ class ViewTodo extends Component {
     };
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const test = nextProps.name;
+    const t = prevState.value;
+    console.log("nextProps.name", test);
+    console.log("prevState.value", t);
+    if (nextProps.name !== prevState.value) {
+      return {
+        value: nextProps.name,
+      };
+    }
+  }
+
+  // getSnapshotBeforeUpdate(prevProps, prevState) {
+  //   console.log("prevProps.name", prevProps.name);
+  //   console.log("this.props.name", this.props.name);
+  //   if (prevProps.name !== this.props.name) {
+  //     this.setState({
+  //       value: this.props.name,
+  //     });
+  //   }
+  // }
+
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   if(prevState.name !== )
+
+  // }
+
   handleChange = (event) => {
     this.setState({
       value: event.target.value,
@@ -25,11 +52,10 @@ class ViewTodo extends Component {
 
   render() {
     const { value } = this.state;
-    const {statusItem, onCheckStatus, onDeleteItem,item } = this.props;
-    console.log(value);
+    const { statusItem, onCheckStatus, onDeleteItem, item } = this.props;
     return (
       <div className="ViewTodo">
-        <button onClick={()=>onCheckStatus(item.id)}>check</button>
+        <button onClick={() => onCheckStatus(item.id)}>check</button>
         <form onSubmit={this.handleSubmit}>
           <input
             className={statusItem ? "ItemActive" : "ItemNoActive"}
@@ -38,7 +64,7 @@ class ViewTodo extends Component {
             onChange={this.handleChange}
           />
         </form>
-        <button onClick={()=>onDeleteItem(item.id)}>Xóa</button>
+        <button onClick={() => onDeleteItem(item.id)}>Xóa</button>
       </div>
     );
   }

@@ -24,7 +24,7 @@ class MainTodo extends Component {
       showActive: "All",
       text: "",
     };
-  };
+  }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { showActive, listTodo } = prevState;
@@ -42,16 +42,14 @@ class MainTodo extends Component {
         break;
       }
     }
-    const {text} = prevState;
+    const { text } = prevState;
     const searchTodo = viewTodoList.filter((item) => {
       return item.name.toLowerCase().indexOf(text.toLocaleLowerCase()) !== -1;
     });
     return {
       searchTodo,
     };
-
   }
-
 
   // them moi
   addTodo = (value) => {
@@ -60,7 +58,6 @@ class MainTodo extends Component {
       listTodo: [{ id: uuIdv4(), name: value, status: false }, ...listTodo],
     });
   };
-
 
   // sua
   editTodo = (id, value) => {
@@ -77,7 +74,7 @@ class MainTodo extends Component {
 
   //delete
   onDeleteItem = (id) => {
-    this.setState((state)=> ({
+    this.setState((state) => ({
       listTodo: state.listTodo.filter((item) => item.id !== id),
     }));
   };
