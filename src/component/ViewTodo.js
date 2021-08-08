@@ -10,17 +10,20 @@ class ViewTodo extends Component {
     };
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const test = nextProps.name;
-    const t = prevState.value;
-    console.log("nextProps.name", test);
-    console.log("prevState.value", t);
-    if (nextProps.name !== prevState.value) {
-      return {
-        value: nextProps.name,
-      };
-    }
-  }
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   const test = nextProps.name;
+  //   const t = prevState.value;
+  //   console.log("nextProps.name", test);
+  //   console.log("prevState.value", t);
+  //   if (nextProps.name !== prevState.value) {
+  //     // return {
+  //     const  value = nextProps.name;
+  //     // };
+  //     return value
+  //   }
+  //
+  // }
+
 
   // getSnapshotBeforeUpdate(prevProps, prevState) {
   //   console.log("prevProps.name", prevProps.name);
@@ -32,10 +35,14 @@ class ViewTodo extends Component {
   //   }
   // }
 
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   if(prevState.name !== )
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.name !== this.props.name){
+      this.setState({
+        value: this.props.name
+      });
+    }
+  }
 
-  // }
 
   handleChange = (event) => {
     this.setState({
