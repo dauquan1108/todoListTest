@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 
 function ViewItem(props) {
-  const { item, status, onCheck, upDate, deleteItem } = props;
-  const [text, setText] = useState(item.name);
+  const { item, onCheck, upDate, deleteItem, name } = props;
+  const [text, setText] = useState(name);
 
-  //   useEffect(() => {
-  //     status={status.props}
-  //   });
+  useEffect(() => {
+    setText(name);
+  }, [name]);
 
   const handleSubmit = (event) => {
     upDate(item.id, text);
     event.preventDefault();
   };
+
   const handleChange = (event) => {
     setText(event.target.value);
   };
@@ -28,7 +29,7 @@ function ViewItem(props) {
       <button onClick={onCheckStatus}>Check</button>
       <form onSubmit={handleSubmit}>
         <input
-          style={status ? { color: "red" } : {}}
+          style={item.status ? { color: "red" } : {}}
           type="text"
           value={text}
           onChange={handleChange}

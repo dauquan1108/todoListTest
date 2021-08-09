@@ -5,8 +5,8 @@ import Todo from "./component/TodoFunction/Todo";
 function App() {
   return (
     <div className="App">
-      <MainTodo />
-      {/* <Todo /> */}
+      {/* <MainTodo /> */}
+      <Todo />
     </div>
   );
 }

@@ -9,17 +9,21 @@ function Todo() {
     { id: 2, name: "Quan2", status: false },
     { id: 3, name: "Quan3", status: false },
   ]);
+
   const addData = (value) => {
     setTodo([{ id: uuIdv4(), name: value, status: false }, ...Todo]);
   };
+
   const onUpDate = (id, value) => {
     Todo.filter((item) => {
       if (item.id === id) {
-        item.status = value;
+        item.name = `${value}quaasss`;
       }
     });
-    setTodo(Todo);
+    setTodo([...Todo]);
+    console.log({ Todo });
   };
+
   const deleteItem = (id) => {
     setTodo(Todo.filter((item) => item.id !== id));
   };
@@ -30,12 +34,8 @@ function Todo() {
         item.status = !item.status;
       }
     });
-    setTodo(Todo);
-    console.log(Todo);
+    setTodo([...Todo]);
   };
-  // useEffect(() => {
-  //   setTodo([...Todo]);
-  // }, [Todo.status]);
   return (
     <div>
       <Header addData={addData} />
@@ -44,7 +44,7 @@ function Todo() {
           <ViewItem
             key={item.id}
             item={item}
-            status={item.status}
+            name={item.name}
             onCheck={checkStatus}
             upDate={onUpDate}
             deleteItem={deleteItem}
