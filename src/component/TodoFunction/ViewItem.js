@@ -24,6 +24,7 @@ function ViewItem(props) {
   const onDeleteItem = () => {
     deleteItem(item.id);
   };
+
   return (
     <div className="HeaderTodo">
       <button onClick={onCheckStatus}>Check</button>

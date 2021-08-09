@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { v4 as uuIdv4 } from "uuid";
 import ViewItem from "./ViewItem";
 import Header from "./Header";
+import Footer from "./Footer";
 function Todo() {
   const [Todo, setTodo] = useState([
     { id: 1, name: "Quan", status: false },
@@ -21,7 +22,6 @@ function Todo() {
       }
     });
     setTodo([...Todo]);
-    console.log({ Todo });
   };
 
   const deleteItem = (id) => {
@@ -36,6 +36,26 @@ function Todo() {
     });
     setTodo([...Todo]);
   };
+
+  const [status, setStatus] = useState("All");
+  const onSetStatus = (status) => {
+    setStatus(status);
+  };
+
+  if (status === "Active") {
+    const todoList = Todo.filter((item) => item.status);
+    console.log(Todo);
+    setTodo(todoList);
+    console.log("Active");
+  } else if (status === "Completed") {
+    const TodoList = Todo.filter((item) => !item.status);
+    console.log(Todo);
+    setTodo(TodoList);
+    console.log("Completed");
+  } else {
+    console.log("All");
+  }
+
   return (
     <div>
       <Header addData={addData} />
@@ -51,6 +71,7 @@ function Todo() {
           />
         );
       })}
+      <Footer onSetStatus={onSetStatus} status={status} />
     </div>
   );
 }
