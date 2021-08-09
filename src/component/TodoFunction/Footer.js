@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 function Footer(props) {
-  const { onSetStatus, status } = props;
+  const { onSetStatus, status, countItem } = props;
   const SetStatus = (event) => {
     onSetStatus(event);
   };
   return (
     <div className="Footer">
-      <samp>0</samp>
+      <samp>{countItem}</samp>
       <button
         style={{ backgroundColor: status === "All" && "red" }}
         onClick={() => SetStatus("All")}

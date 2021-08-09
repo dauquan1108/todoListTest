@@ -26,7 +26,14 @@ function ViewItem(props) {
   };
 
   return (
-    <div className="HeaderTodo">
+    <div
+      className="HeaderTodo"
+      style={{
+        flexDirection: "row",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       <button onClick={onCheckStatus}>Check</button>
       <form onSubmit={handleSubmit}>
         <input

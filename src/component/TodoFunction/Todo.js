@@ -11,6 +11,8 @@ function Todo() {
     { id: 3, name: "Quan3", status: false },
   ]);
 
+  const [search, setSearch] = useState("");
+
   const addData = (value) => {
     setTodo([{ id: uuIdv4(), name: value, status: false }, ...Todo]);
   };
@@ -42,24 +44,51 @@ function Todo() {
     setStatus(status);
   };
 
+  let todoNew = [];
   if (status === "Active") {
     const todoList = Todo.filter((item) => item.status);
-    console.log(Todo);
-    setTodo(todoList);
-    console.log("Active");
+    todoNew = [...todoList];
   } else if (status === "Completed") {
-    const TodoList = Todo.filter((item) => !item.status);
-    console.log(Todo);
-    setTodo(TodoList);
-    console.log("Completed");
+    const todoList = Todo.filter((item) => !item.status);
+    todoNew = [...todoList];
   } else {
-    console.log("All");
+    const todoList = [...Todo];
+    todoNew = [...todoList];
   }
+
+  const countItem = () => {
+    const countTodo = Todo.filter((item) => !item.status);
+    return countTodo.length;
+  };
+
+  // search
+  const handleSubmit = (event) => {
+    setSearch("");
+    event.preventDefault();
+  };
+
+  const handleChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const keyWordSearch = todoNew.filter((item) => {
+    return item.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+  });
 
   return (
     <div>
+      <div className="SearchTodo">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={search}
+            onChange={handleChange}
+            placeholder="Tìm kiếm"
+          />
+        </form>
+      </div>
       <Header addData={addData} />
-      {Todo.map((item) => {
+      {keyWordSearch.map((item) => {
         return (
           <ViewItem
             key={item.id}
@@ -71,7 +100,11 @@ function Todo() {
           />
         );
       })}
-      <Footer onSetStatus={onSetStatus} status={status} />
+      <Footer
+        onSetStatus={onSetStatus}
+        status={status}
+        countItem={countItem()}
+      />
     </div>
   );
 }
