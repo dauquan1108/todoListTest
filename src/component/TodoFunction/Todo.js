@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 // id
 import { v4 as uuIdv4 } from "uuid";
-import ViewItem from "./ViewItem";
+import SearchHeader from "./SearchHeader";
 import Header from "./Header";
+import ViewItem from "./ViewItem";
 import Footer from "./Footer";
 function Todo() {
   const [Todo, setTodo] = useState([
@@ -61,32 +62,21 @@ function Todo() {
     return countTodo.length;
   };
 
-  // search
-  const handleSubmit = (event) => {
-    setSearch("");
-    event.preventDefault();
-  };
-
+  //search;
   const handleChange = (event) => {
     setSearch(event.target.value);
   };
-
+  // const handleSubmit = (event) => {
+  //   onChange(event);
+  //   event.preventDefault();
+  // };
   const keyWordSearch = todoNew.filter((item) => {
     return item.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
   });
 
   return (
     <div>
-      <div className="SearchTodo">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={search}
-            onChange={handleChange}
-            placeholder="Tìm kiếm"
-          />
-        </form>
-      </div>
+      <SearchHeader onChange={handleChange} />
       <Header addData={addData} />
       {keyWordSearch.map((item) => {
         return (
