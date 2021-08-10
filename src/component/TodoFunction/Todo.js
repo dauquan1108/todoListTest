@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // id
 import { v4 as uuIdv4 } from "uuid";
 import SearchHeader from "./SearchHeader";
@@ -66,13 +66,16 @@ function Todo() {
   const handleChange = (event) => {
     setSearch(event.target.value);
   };
-  // const handleSubmit = (event) => {
-  //   onChange(event);
-  //   event.preventDefault();
-  // };
+
   const keyWordSearch = todoNew.filter((item) => {
     return item.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
   });
+
+  //onClear Completed
+  const onClearCompleted = () => {
+    const onCompleted = Todo.filter((item) => !item.status);
+    setTodo([...onCompleted]);
+  };
 
   return (
     <div>
@@ -94,6 +97,7 @@ function Todo() {
         onSetStatus={onSetStatus}
         status={status}
         countItem={countItem()}
+        ClearCompleted={onClearCompleted}
       />
     </div>
   );

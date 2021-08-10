@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 
 function Footer(props) {
-  const { onSetStatus, status, countItem } = props;
+  const { onSetStatus, status, countItem, ClearCompleted } = props;
   const SetStatus = (event) => {
     onSetStatus(event);
   };
+  const onClearCompleted = () => {
+    ClearCompleted();
+  };
   return (
     <div className="Footer">
-      <samp>{countItem}</samp>
+      <samp style={{ fontSize: 15, fontWeight: "bold" }}>{countItem}</samp>
       <button
         style={{ backgroundColor: status === "All" && "red" }}
         onClick={() => SetStatus("All")}
@@ -26,6 +29,7 @@ function Footer(props) {
       >
         Completed
       </button>
+      <button onClick={onClearCompleted}>Clear completed</button>
     </div>
   );
 }
