@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 function SearchHeader(props) {
   const { onChange } = props;
@@ -35,3 +36,10 @@ function SearchHeader(props) {
   );
 }
 export default SearchHeader;
+SearchHeader.propTypes = {
+  handleSubmit: PropTypes.func,
+  handleChange: PropTypes.func,
+};
+SearchHeader.defaultPros = {
+  search: "",
+};

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 // id
 import { v4 as uuIdv4 } from "uuid";
 import SearchHeader from "./SearchHeader";
@@ -11,6 +12,8 @@ function Todo() {
     { id: 2, name: "Quan2", status: false },
     { id: 3, name: "Quan3", status: false },
   ]);
+
+  const [status, setStatus] = useState("All");
 
   const [search, setSearch] = useState("");
 
@@ -40,7 +43,6 @@ function Todo() {
     setTodo([...Todo]);
   };
 
-  const [status, setStatus] = useState("All");
   const onSetStatus = (status) => {
     setStatus(status);
   };
@@ -104,3 +106,19 @@ function Todo() {
 }
 
 export default Todo;
+Todo.propTypes = {
+  addData: PropTypes.func,
+  onUpDate: PropTypes.func,
+  deleteItem: PropTypes.func,
+  checkStatus: PropTypes.func,
+  onSetStatus: PropTypes.func,
+  countItem: PropTypes.func,
+  handleChange: PropTypes.func,
+  onClearCompleted: PropTypes.func,
+};
+Todo.defaultPros = {
+  Todo: [],
+  status: "",
+  search: "",
+  todoNew: "",
+};

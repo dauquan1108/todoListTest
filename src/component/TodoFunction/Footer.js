@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
-function Footer(props) {
-  const { onSetStatus, status, countItem, ClearCompleted } = props;
+function Footer({ onSetStatus, status, countItem, ClearCompleted }) {
   const SetStatus = (event) => {
     onSetStatus(event);
   };
@@ -35,3 +35,8 @@ function Footer(props) {
 }
 
 export default Footer;
+
+Footer.propTypes = {
+  SetStatus: PropTypes.func,
+  onClearCompleted: PropTypes.func,
+};

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 function Header(props) {
   const { addData } = props;
@@ -24,3 +25,12 @@ function Header(props) {
 }
 
 export default Header;
+
+Header.propTypes = {
+  handleSubmit: PropTypes.func,
+  handleChange: PropTypes.func,
+};
+
+Header.defaultPros = {
+  value: "",
+};

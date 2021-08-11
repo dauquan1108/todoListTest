@@ -10,7 +10,7 @@ import { v4 as uuIdv4 } from "uuid";
 import HeaderTodo from "./HeaderTodo";
 import ViewTodo from "./ViewTodo";
 import FooterTodo from "./FooterTodo";
-import Paging from "./TodoFunction/Paging";
+import Paging from "./Paging";
 
 class MainTodo extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class MainTodo extends Component {
       showActive: "All",
       text: "",
       currentPage: 1,
-      newsPerPage: 5
+      newsPerPage: 5,
     };
   }
 
@@ -108,7 +108,7 @@ class MainTodo extends Component {
 
   onClearAllItem = () => {
     this.setState((state) => ({
-      listTodo: state.listTodo.filter((item) =>  item.status === false),
+      listTodo: state.listTodo.filter((item) => item.status === false),
     }));
   };
 
@@ -128,32 +128,33 @@ class MainTodo extends Component {
   //Phan trang
   chosePage = (event) => {
     this.setState({
-      currentPage: Number(event.target.id)
+      currentPage: Number(event.target.id),
     });
   };
 
   render() {
-    const { status, text, listTodo, searchTodo, currentPage, newsPerPage } = this.state;
+    const { status, text, listTodo, searchTodo, currentPage, newsPerPage } =
+      this.state;
     const count = this.countNumberTodo();
     // phan trang
     // tin tuc cuoi cung
     const ofLastNews = currentPage * newsPerPage;
-    const  ofFirstNews = ofLastNews - newsPerPage;
+    const ofFirstNews = ofLastNews - newsPerPage;
     const currentTodos = searchTodo.slice(ofFirstNews, ofLastNews);
     const renderTodos = currentTodos.map((item) => {
       return (
-          <ViewTodo
-              key={item.id}
-              item={item}
-              name={item.name}
-              statusItem={item.status}
-              status={status}
-              editTodo={this.editTodo}
-              onDeleteItem={this.onDeleteItem}
-              onCheckStatus={this.onCheckStatus}
-          />
+        <ViewTodo
+          key={item.id}
+          item={item}
+          name={item.name}
+          statusItem={item.status}
+          status={status}
+          editTodo={this.editTodo}
+          onDeleteItem={this.onDeleteItem}
+          onCheckStatus={this.onCheckStatus}
+        />
       );
-    })
+    });
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(searchTodo.length / newsPerPage); i++) {
       pageNumbers.push(i);
@@ -172,7 +173,11 @@ class MainTodo extends Component {
         </div>
         <HeaderTodo addTodo={this.addTodo} />
         {renderTodos}
-        <Paging pageNumbers={pageNumbers} currentPage={currentPage} chosePage = {this.chosePage} />
+        <Paging
+          pageNumbers={pageNumbers}
+          currentPage={currentPage}
+          chosePage={this.chosePage}
+        />
         <FooterTodo
           onShowActive={this.onShowActive}
           countTodo={count}

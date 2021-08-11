@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
-function ViewItem(props) {
-  const { item, onCheck, upDate, deleteItem, name } = props;
+function ViewItem({ item, onCheck, upDate, deleteItem, name }) {
   const [text, setText] = useState(name);
 
   useEffect(() => {
@@ -49,3 +49,13 @@ function ViewItem(props) {
   );
 }
 export default ViewItem;
+
+ViewItem.prototype = {
+  handleSubmit: PropTypes.func,
+  handleChange: PropTypes.func,
+  onCheckStatus: PropTypes.func,
+  onDeleteItem: PropTypes.func,
+};
+ViewItem.defaultPros = {
+  text: "",
+};
