@@ -23,7 +23,7 @@ function App() {
           color: theme.color,
         }}
       >
-        Color {!dark ? "Dark" : "Light"} theme
+        Color {dark ? "Dark" : "Light"} theme
       </button>
       <Todo />
     </div>

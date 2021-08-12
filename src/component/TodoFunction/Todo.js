@@ -81,12 +81,24 @@ function Todo() {
     setTodo([...onCompleted]);
   };
 
+  // ref
+  let ref = React.createRef();
+  const handleButton = () => {
+    console.log({ ref });
+    ref.current.focus();
+    const valueInput = ref.current.value;
+    console.log({ valueInput });
+    return valueInput;
+  };
+
   return (
     <div>
       <InputText title="Tìm kiếm" onChange={handleChange} />
       {/* <SearchHeader onChange={handleChange} /> */}
       {/* <Header addData={addData} /> */}
-      <InputText title="Vui lòng nhâp" addData={addData} />
+      {/* <span>{valueInput}</span> */}
+      <InputText title="Vui lòng nhâp" addData={addData} ref={ref} />
+      <button onClick={handleButton}>Sử dụng ref để Focus input</button>
       {keyWordSearch.map((item) => {
         return (
           <ViewItem

@@ -1,6 +1,5 @@
-import { useState } from "react";
-
-function InputText(props) {
+import { useState, forwardRef } from "react";
+const InputText = forwardRef((props, ref) => {
   const { title, onChange, addData } = props;
   const [keyWord, setKeyWord] = useState("");
   const handleSubmit = (event) => {
@@ -27,6 +26,7 @@ function InputText(props) {
     >
       <form onSubmit={handleSubmit}>
         <input
+          ref={ref}
           type="text"
           value={keyWord}
           onChange={handleChange}
@@ -35,5 +35,5 @@ function InputText(props) {
       </form>
     </div>
   );
-}
+});
 export default InputText;
