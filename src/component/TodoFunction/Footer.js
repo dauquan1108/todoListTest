@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+// theme
+import { ThemeContext } from "../themes/theme-context";
 
 function Footer({ onSetStatus, status, countItem, ClearCompleted }) {
   const SetStatus = (event) => {
@@ -8,28 +10,47 @@ function Footer({ onSetStatus, status, countItem, ClearCompleted }) {
   const onClearCompleted = () => {
     ClearCompleted();
   };
+  //theme
+  const { theme } = React.useContext(ThemeContext);
   return (
     <div className="footer">
       <samp style={{ fontSize: 15, fontWeight: "bold" }}>{countItem}</samp>
       <button
-        style={{ backgroundColor: status === "All" && "red" }}
+        style={{
+          backgroundColor: status === "All" && "red",
+          color: theme.color,
+          backgroundColor: theme.backgroundColor,
+        }}
         onClick={() => SetStatus("All")}
       >
         All
       </button>
       <button
-        style={{ backgroundColor: status === "Active" && "red" }}
+        style={{
+          backgroundColor: status === "Active" && "red",
+          color: theme.color,
+          backgroundColor: theme.backgroundColor,
+        }}
         onClick={() => SetStatus("Active")}
       >
         Active
       </button>
       <button
-        style={{ backgroundColor: status === "Completed" && "red" }}
+        style={{
+          backgroundColor: status === "Completed" && "red",
+          color: theme.color,
+          backgroundColor: theme.backgroundColor,
+        }}
         onClick={() => SetStatus("Completed")}
       >
         Completed
       </button>
-      <button onClick={onClearCompleted}>Clear completed</button>
+      <button
+        style={{ color: theme.color, backgroundColor: theme.backgroundColor }}
+        onClick={onClearCompleted}
+      >
+        Clear completed
+      </button>
     </div>
   );
 }

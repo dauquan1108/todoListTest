@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+// theme
+import { ThemeContext } from "../themes/theme-context";
 
 function ViewItem({ item, onCheck, upDate, deleteItem, name }) {
   const [text, setText] = useState(name);
@@ -24,7 +26,8 @@ function ViewItem({ item, onCheck, upDate, deleteItem, name }) {
   const onDeleteItem = () => {
     deleteItem(item.id);
   };
-
+  //theme
+  const { theme } = React.useContext(ThemeContext);
   return (
     <div
       className="headerTodo"
@@ -34,7 +37,15 @@ function ViewItem({ item, onCheck, upDate, deleteItem, name }) {
         justifyContent: "center",
       }}
     >
-      <button onClick={onCheckStatus}>Check</button>
+      <button
+        onClick={onCheckStatus}
+        style={{
+          color: theme.color,
+          backgroundColor: theme.backgroundColor,
+        }}
+      >
+        Check
+      </button>
       <form onSubmit={handleSubmit}>
         <input
           style={item.status ? { color: "red" } : {}}
@@ -44,7 +55,15 @@ function ViewItem({ item, onCheck, upDate, deleteItem, name }) {
           placeholder="Vui lòng nhập"
         />
       </form>
-      <button onClick={onDeleteItem}>Xóa</button>
+      <button
+        onClick={onDeleteItem}
+        style={{
+          color: theme.color,
+          backgroundColor: theme.backgroundColor,
+        }}
+      >
+        Xóa
+      </button>
     </div>
   );
 }

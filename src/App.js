@@ -21,11 +21,9 @@ function App() {
         style={{
           backgroundColor: theme.backgroundColor,
           color: theme.color,
-          outline: "none",
         }}
-        data-testid="toggle-theme-btn"
       >
-        Toggle to {!dark ? "Dark" : "Light"} theme
+        Color {!dark ? "Dark" : "Light"} theme
       </button>
       <Todo />
     </div>

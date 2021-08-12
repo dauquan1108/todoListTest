@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 // id
 import { v4 as uuIdv4 } from "uuid";
+// component
 import SearchHeader from "./SearchHeader";
 import Header from "./Header";
 import ViewItem from "./ViewItem";
 import Footer from "./Footer";
-// theme
+import InputText from "./InputText";
+
 function Todo() {
   const [todo, setTodo] = useState([
     { id: 1, name: "Quan", status: false },
@@ -81,8 +83,10 @@ function Todo() {
 
   return (
     <div>
-      <SearchHeader onChange={handleChange} />
-      <Header addData={addData} />
+      <InputText title="Tìm kiếm" onChange={handleChange} />
+      {/* <SearchHeader onChange={handleChange} /> */}
+      {/* <Header addData={addData} /> */}
+      <InputText title="Vui lòng nhâp" addData={addData} />
       {keyWordSearch.map((item) => {
         return (
           <ViewItem
