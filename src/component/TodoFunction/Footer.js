@@ -17,9 +17,8 @@ function Footer({ onSetStatus, status, countItem, ClearCompleted }) {
       <samp style={{ fontSize: 15, fontWeight: "bold" }}>{countItem}</samp>
       <button
         style={{
-          backgroundColor: status === "All" && "red",
+          backgroundColor: status === "All" ? "red" : theme.backgroundColor,
           color: theme.color,
-          backgroundColor: theme.backgroundColor,
         }}
         onClick={() => SetStatus("All")}
       >
@@ -27,9 +26,8 @@ function Footer({ onSetStatus, status, countItem, ClearCompleted }) {
       </button>
       <button
         style={{
-          backgroundColor: status === "Active" && "red",
+          backgroundColor: status === "Active" ? "red" : theme.backgroundColor,
           color: theme.color,
-          backgroundColor: theme.backgroundColor,
         }}
         onClick={() => SetStatus("Active")}
       >
@@ -37,7 +35,8 @@ function Footer({ onSetStatus, status, countItem, ClearCompleted }) {
       </button>
       <button
         style={{
-          backgroundColor: status === "Completed" && "red",
+          backgroundColor:
+            status === "Completed" ? "red" : theme.backgroundColor,
           color: theme.color,
           backgroundColor: theme.backgroundColor,
         }}
