@@ -9,7 +9,7 @@ function Footer({ onSetStatus, status, countItem, ClearCompleted }) {
     ClearCompleted();
   };
   return (
-    <div className="Footer">
+    <div className="footer">
       <samp style={{ fontSize: 15, fontWeight: "bold" }}>{countItem}</samp>
       <button
         style={{ backgroundColor: status === "All" && "red" }}

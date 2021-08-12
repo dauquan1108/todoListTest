@@ -16,7 +16,7 @@ function SearchHeader(props) {
 
   return (
     <div
-      className="SearchTodo"
+      className="searchTodo"
       style={{
         display: "flex",
         flexDirection: "row",

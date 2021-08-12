@@ -4,8 +4,12 @@ import PropTypes from "prop-types";
 function Header(props) {
   const { addData } = props;
   const [value, setValue] = useState("");
+
   const handleSubmit = (event) => {
-    addData(value);
+    const valueFrom = {
+      name: value,
+    };
+    addData(valueFrom);
     setValue("");
     event.preventDefault();
   };

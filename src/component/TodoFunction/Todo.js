@@ -6,8 +6,9 @@ import SearchHeader from "./SearchHeader";
 import Header from "./Header";
 import ViewItem from "./ViewItem";
 import Footer from "./Footer";
+// theme
 function Todo() {
-  const [Todo, setTodo] = useState([
+  const [todo, setTodo] = useState([
     { id: 1, name: "Quan", status: false },
     { id: 2, name: "Quan2", status: false },
     { id: 3, name: "Quan3", status: false },
@@ -17,30 +18,30 @@ function Todo() {
 
   const [search, setSearch] = useState("");
 
-  const addData = (value) => {
-    setTodo([{ id: uuIdv4(), name: value, status: false }, ...Todo]);
+  const addData = (valueFrom) => {
+    setTodo([{ id: uuIdv4(), name: valueFrom.name, status: false }, ...todo]);
   };
 
   const onUpDate = (id, value) => {
-    Todo.filter((item) => {
+    todo.forEach((item) => {
       if (item.id === id) {
         item.name = `${value}quaasss`;
       }
     });
-    setTodo([...Todo]);
+    setTodo([...todo]);
   };
 
   const deleteItem = (id) => {
-    setTodo(Todo.filter((item) => item.id !== id));
+    setTodo(todo.filter((item) => item.id !== id));
   };
 
   const checkStatus = (id) => {
-    Todo.filter((item) => {
+    todo.forEach((item) => {
       if (item.id === id) {
         item.status = !item.status;
       }
     });
-    setTodo([...Todo]);
+    setTodo([...todo]);
   };
 
   const onSetStatus = (status) => {
@@ -49,21 +50,15 @@ function Todo() {
 
   let todoNew = [];
   if (status === "Active") {
-    const todoList = Todo.filter((item) => item.status);
+    const todoList = todo.filter((item) => item.status);
     todoNew = [...todoList];
   } else if (status === "Completed") {
-    const todoList = Todo.filter((item) => !item.status);
+    const todoList = todo.filter((item) => !item.status);
     todoNew = [...todoList];
   } else {
-    const todoList = [...Todo];
+    const todoList = [...todo];
     todoNew = [...todoList];
   }
-
-  const countItem = () => {
-    const countTodo = Todo.filter((item) => !item.status);
-    return countTodo.length;
-  };
-
   //search;
   const handleChange = (event) => {
     setSearch(event.target.value);
@@ -73,9 +68,14 @@ function Todo() {
     return item.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
   });
 
+  const countItem = () => {
+    const countTodo = todo.filter((item) => !item.status);
+    return countTodo.length;
+  };
+
   //onClear Completed
   const onClearCompleted = () => {
-    const onCompleted = Todo.filter((item) => !item.status);
+    const onCompleted = todo.filter((item) => !item.status);
     setTodo([...onCompleted]);
   };
 
@@ -117,7 +117,7 @@ Todo.propTypes = {
   onClearCompleted: PropTypes.func,
 };
 Todo.defaultPros = {
-  Todo: [],
+  todo: [],
   status: "",
   search: "",
   todoNew: "",

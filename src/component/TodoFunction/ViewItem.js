@@ -27,7 +27,7 @@ function ViewItem({ item, onCheck, upDate, deleteItem, name }) {
 
   return (
     <div
-      className="HeaderTodo"
+      className="headerTodo"
       style={{
         flexDirection: "row",
         display: "flex",
