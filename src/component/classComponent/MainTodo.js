@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 // style
-import "../component/style/styleViewTodo.css";
+import "../style/styleViewTodo.css";
 
 // id
 import { v4 as uuIdv4 } from "uuid";

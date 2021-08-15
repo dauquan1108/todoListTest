@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 // theme
-import { ThemeContext } from "../themes/theme-context";
+import { ThemeContext } from "../../themes/theme-context";
+// redux
+import { connect } from "react-redux";
+// action
+import * as action from "../../actions";
+function ViewItem(props) {
+  const { item, deleteItem, editItem, title, checkIsComplete, isComplete } =
+    props;
 
-function ViewItem({ item, onCheck, upDate, deleteItem, name }) {
-  const [text, setText] = useState(name);
+  //theme
+  const { theme } = React.useContext(ThemeContext);
 
   useEffect(() => {
-    setText(name);
-  }, [name]);
+    setText(item.title);
+  }, [title]);
+
+  const [text, setText] = useState(title);
 
   const handleSubmit = (event) => {
-    upDate(item.id, text);
+    editItem(item.id, text);
     event.preventDefault();
   };
 
@@ -20,14 +29,13 @@ function ViewItem({ item, onCheck, upDate, deleteItem, name }) {
   };
 
   const onCheckStatus = () => {
-    onCheck(item.id);
+    checkIsComplete(item.id);
   };
 
   const onDeleteItem = () => {
     deleteItem(item.id);
   };
-  //theme
-  const { theme } = React.useContext(ThemeContext);
+
   return (
     <div
       className="headerTodo"
@@ -48,7 +56,7 @@ function ViewItem({ item, onCheck, upDate, deleteItem, name }) {
       </button>
       <form onSubmit={handleSubmit}>
         <input
-          style={item.status ? { color: "red" } : {}}
+          style={isComplete ? { color: "red" } : {}}
           type="text"
           value={text}
           onChange={handleChange}
@@ -67,13 +75,31 @@ function ViewItem({ item, onCheck, upDate, deleteItem, name }) {
     </div>
   );
 }
-export default ViewItem;
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    editItem: (idItem, valueText) => {
+      dispatch(action.ON_EDIT_ITEM_TODO(idItem, valueText));
+    },
+    deleteItem: (idItem) => {
+      dispatch(action.ON_DELETE_ITEM_TODO(idItem));
+    },
+    checkIsComplete: (idItem) => {
+      dispatch(action.ON_CHECK_IS_COMPLETE(idItem));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(ViewItem);
 
 ViewItem.prototype = {
   handleSubmit: PropTypes.func,
   handleChange: PropTypes.func,
   onCheckStatus: PropTypes.func,
   onDeleteItem: PropTypes.func,
+  deleteItem: PropTypes.func,
+  checkIsComplete: PropTypes.func,
+  editItem: PropTypes.func,
 };
 ViewItem.defaultPros = {
   text: "",

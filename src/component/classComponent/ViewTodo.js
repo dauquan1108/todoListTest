@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../component/style/styleViewTodo.css";
+import "../style/styleViewTodo.css";
 
 class ViewTodo extends Component {
   constructor(props) {
@@ -24,7 +24,6 @@ class ViewTodo extends Component {
   //
   // }
 
-
   // getSnapshotBeforeUpdate(prevProps, prevState) {
   //   console.log("prevProps.name", prevProps.name);
   //   console.log("this.props.name", this.props.name);
@@ -36,13 +35,12 @@ class ViewTodo extends Component {
   // }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.name !== this.props.name){
+    if (prevProps.name !== this.props.name) {
       this.setState({
-        value: this.props.name
+        value: this.props.name,
       });
     }
   }
-
 
   handleChange = (event) => {
     this.setState({

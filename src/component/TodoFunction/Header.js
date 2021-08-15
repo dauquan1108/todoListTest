@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+// redux
+import { connect } from "react-redux";
+// action
+import * as action from "../../actions";
 
 function Header(props) {
-  const { addData } = props;
+  const { addItem } = props;
   const [value, setValue] = useState("");
 
   const handleSubmit = (event) => {
-    const valueFrom = {
-      name: value,
-    };
-    addData(valueFrom);
+    addItem(value.trim());
     setValue("");
     event.preventDefault();
   };
@@ -28,7 +29,15 @@ function Header(props) {
   );
 }
 
-export default Header;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addItem: (valueText) => {
+      dispatch(action.ON_ADD_ITEM_TODO(valueText));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Header);
 
 Header.propTypes = {
   handleSubmit: PropTypes.func,

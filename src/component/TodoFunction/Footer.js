@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 // theme
-import { ThemeContext } from "../themes/theme-context";
+import { ThemeContext } from "../../themes/theme-context";
 
-function Footer({ onSetStatus, status, countItem, ClearCompleted }) {
+// selector
+import { amountOfUnfinishedWork } from "../../selectors";
+// redux
+import { connect } from "react-redux";
+// action
+import * as action from "../../actions";
+
+function Footer(props) {
+  const { onSetStatus, status, countItem, ClearCompleted } = props;
   const SetStatus = (event) => {
     onSetStatus(event);
   };
@@ -38,7 +46,6 @@ function Footer({ onSetStatus, status, countItem, ClearCompleted }) {
           backgroundColor:
             status === "Completed" ? "red" : theme.backgroundColor,
           color: theme.color,
-          backgroundColor: theme.backgroundColor,
         }}
         onClick={() => SetStatus("Completed")}
       >
@@ -54,7 +61,19 @@ function Footer({ onSetStatus, status, countItem, ClearCompleted }) {
   );
 }
 
-export default Footer;
+const mapStateToProps = (state) => {
+  return {
+    countItem: amountOfUnfinishedWork(state),
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    ClearCompleted: () => {
+      dispatch(action.ON_CLEAR_COMPLETED());
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);
 
 Footer.propTypes = {
   SetStatus: PropTypes.func,

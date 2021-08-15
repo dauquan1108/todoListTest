@@ -1,140 +1,105 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-// id
-import { v4 as uuIdv4 } from "uuid";
+// react-redux
+import { connect } from "react-redux";
+
+// selectors
+import { getVisibleTodo } from "../../selectors";
+
+// action
+import * as action from "../../actions";
+
 // component
 import SearchHeader from "./SearchHeader";
 import Header from "./Header";
 import ViewItem from "./ViewItem";
 import Footer from "./Footer";
-import InputText from "./InputText";
-
-function Todo() {
-  const [todo, setTodo] = useState([
-    { id: 1, name: "Quan", status: false },
-    { id: 2, name: "Quan2", status: false },
-    { id: 3, name: "Quan3", status: false },
-  ]);
+import Paging from "./Paging";
+// style
+import "./style/styleTodo.css";
+function Todo(props) {
+  const { todoList, showStatus } = props;
 
   const [status, setStatus] = useState("All");
 
-  const [search, setSearch] = useState("");
-
-  const addData = (valueFrom) => {
-    setTodo([{ id: uuIdv4(), name: valueFrom.name, status: false }, ...todo]);
-  };
-
-  const onUpDate = (id, value) => {
-    todo.forEach((item) => {
-      if (item.id === id) {
-        item.name = `${value}quaasss`;
-      }
-    });
-    setTodo([...todo]);
-  };
-
-  const deleteItem = (id) => {
-    setTodo(todo.filter((item) => item.id !== id));
-  };
-
-  const checkStatus = (id) => {
-    todo.forEach((item) => {
-      if (item.id === id) {
-        item.status = !item.status;
-      }
-    });
-    setTodo([...todo]);
-  };
-
   const onSetStatus = (status) => {
     setStatus(status);
+    showStatus({ status });
   };
 
-  let todoNew = [];
-  if (status === "Active") {
-    const todoList = todo.filter((item) => item.status);
-    todoNew = [...todoList];
-  } else if (status === "Completed") {
-    const todoList = todo.filter((item) => !item.status);
-    todoNew = [...todoList];
-  } else {
-    const todoList = [...todo];
-    todoNew = [...todoList];
-  }
   //search;
+  const [search, setSearch] = useState("");
+
   const handleChange = (event) => {
     setSearch(event.target.value);
   };
-
-  const keyWordSearch = todoNew.filter((item) => {
-    return item.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+  const keyWordSearch = todoList.filter((item) => {
+    return item.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
   });
 
-  const countItem = () => {
-    const countTodo = todo.filter((item) => !item.status);
-    return countTodo.length;
-  };
+  // Phan trang
+  const [currentPage, setCurrentPage] = useState(1);
+  const [newsPerPage, setNewsPerPage] = useState(5);
+  const indexOfLastNews = currentPage * newsPerPage;
+  const indexOfFirstNews = indexOfLastNews - newsPerPage;
+  const currentTodo = keyWordSearch.slice(indexOfFirstNews, indexOfLastNews);
+  const renderTodo = currentTodo.map((item) => {
+    return (
+      <ViewItem
+        key={item.id}
+        item={item}
+        title={item.title}
+        isComplete={item.isComplete}
+      />
+    );
+  });
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(keyWordSearch.length / newsPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
-  //onClear Completed
-  const onClearCompleted = () => {
-    const onCompleted = todo.filter((item) => !item.status);
-    setTodo([...onCompleted]);
-  };
-
-  // ref
-  let ref = React.createRef();
-  const handleButton = () => {
-    console.log({ ref });
-    ref.current.focus();
-    const valueInput = ref.current.value;
-    console.log({ valueInput });
-    return valueInput;
+  const chosePage = (event) => {
+    setCurrentPage(Number(event.target.id));
   };
 
   return (
     <div>
-      <InputText title="Tìm kiếm" onChange={handleChange} />
-      {/* <SearchHeader onChange={handleChange} /> */}
-      {/* <Header addData={addData} /> */}
-      {/* <span>{valueInput}</span> */}
-      <InputText title="Vui lòng nhâp" addData={addData} ref={ref} />
-      <button onClick={handleButton}>Sử dụng ref để Focus input</button>
-      {keyWordSearch.map((item) => {
-        return (
-          <ViewItem
-            key={item.id}
-            item={item}
-            name={item.name}
-            onCheck={checkStatus}
-            upDate={onUpDate}
-            deleteItem={deleteItem}
-          />
-        );
-      })}
-      <Footer
-        onSetStatus={onSetStatus}
-        status={status}
-        countItem={countItem()}
-        ClearCompleted={onClearCompleted}
+      <SearchHeader onChange={handleChange} />
+      <Header />
+      {renderTodo}
+      <Paging
+        pageNumbers={pageNumbers}
+        currentPage={currentPage}
+        chosePage={chosePage}
       />
+      <Footer onSetStatus={onSetStatus} status={status} />
     </div>
   );
 }
 
-export default Todo;
+const mapStateToProps = (state) => {
+  return {
+    todoList: getVisibleTodo(state),
+    showStatus: state.ShowStatus,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    showStatus: (status) => {
+      dispatch(action.ON_SHOW_STATUS(status));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todo);
 Todo.propTypes = {
-  addData: PropTypes.func,
-  onUpDate: PropTypes.func,
-  deleteItem: PropTypes.func,
-  checkStatus: PropTypes.func,
   onSetStatus: PropTypes.func,
-  countItem: PropTypes.func,
   handleChange: PropTypes.func,
-  onClearCompleted: PropTypes.func,
+  showStatus: PropTypes.func,
 };
 Todo.defaultPros = {
-  todo: [],
-  status: "",
+  todoList: [],
   search: "",
-  todoNew: "",
+  status: "",
 };

@@ -3,18 +3,30 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ThemeProvider } from "./component/themes/theme-context";
+// Theme context
+import { ThemeProvider } from "./themes/theme-context";
 
+//---thu vien Redux
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+
+// npm install --save redux-devtools-extension
+// import { composeWithDevTools } from "redux-devtools-extension";
+
+// Store
+import appReducers from "./store/index";
+//Tạo store-
+const store = createStore(appReducers);
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>,
+
   document.getElementById("root")
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

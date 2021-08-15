@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../component/style/styleViewTodo.css";
+import "../style/styleViewTodo.css";
 
 class FooterTodo extends Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class FooterTodo extends Component {
         >
           Completed
         </p>
-        <p onClick={()=>onClearAllItem()}>ClearActive</p>
+        <p onClick={() => onClearAllItem()}>ClearActive</p>
       </div>
     );
   }

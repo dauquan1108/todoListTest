@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
-// import MainTodo from "./component/MainTodo";
+// import MainTodo from "./component/classComponent/MainTodo";
 import Todo from "./component/TodoFunction/Todo";
-import { ThemeContext } from "./component/themes/theme-context";
+import { ThemeContext } from "./themes/theme-context";
 
 function App() {
   const { theme, toggle, dark } = React.useContext(ThemeContext);
@@ -26,6 +26,7 @@ function App() {
         Color {dark ? "Dark" : "Light"} theme
       </button>
       <Todo />
+      {/* <MainTodo /> */}
     </div>
   );
 }
