@@ -2,21 +2,17 @@ import * as ActionTypes from "../constants/ActionType";
 // id
 import { v4 as uuIdv4 } from "uuid";
 
-let todo = [
-  { id: 1, title: "Quan1", isComplete: false },
-  { id: 2, title: "Quan2", isComplete: false },
-  { id: 3, title: "Quan3", isComplete: false },
-];
+let todo = [];
 
 const Todo = (state = todo, action) => {
   switch (action.type) {
     case ActionTypes.GET_LIST_TODO:
-      const test = action.payload.todoList;
-      console.log(test);
+      state = action.todoList;
+      todo = [...state];
       return [...state];
     case ActionTypes.ADD_ITEM_TODO:
-      const valueText = action.payload.valueText;
-      return [{ id: uuIdv4(), title: valueText, isComplete: false }, ...state];
+      const valueText = action.valueText;
+      return [...state, { id: uuIdv4(), title: valueText, isComplete: false }];
     case ActionTypes.EDIT_ITEM_TODO:
       const idEdit = action.payload.idItem;
       const valueEdit = action.payload.valueText;

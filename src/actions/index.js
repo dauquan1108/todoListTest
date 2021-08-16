@@ -13,9 +13,9 @@ export const ON_GET_LIST_TODO = (todoList) => {
 export const ON_ADD_ITEM_TODO = (valueText) => {
   return {
     type: ActionTypes.ADD_ITEM_TODO,
-    payload: {
-      valueText,
-    },
+    // payload: {
+    valueText,
+    // },
   };
 };
 
@@ -70,6 +70,15 @@ export const ON_GET_LIST_TODO_SAGA = () => {
 };
 
 //Header
+// Header
+export const ON_ADD_ITEM_TODO_SAGA = (valueText) => {
+  return {
+    type: ActionTypes.ADD_ITEM_TODO_SAGA,
+    payload: {
+      valueText,
+    },
+  };
+};
 
 //view
 

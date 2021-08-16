@@ -32,7 +32,7 @@ function Header(props) {
 const mapDispatchToProps = (dispatch) => {
   return {
     addItem: (valueText) => {
-      dispatch(action.ON_ADD_ITEM_TODO(valueText));
+      dispatch(action.ON_ADD_ITEM_TODO_SAGA(valueText));
     },
   };
 };

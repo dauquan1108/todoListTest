@@ -20,7 +20,6 @@ import "./style/styleTodo.css";
 function Todo(props) {
   const { todoList, showStatus, getList } = props;
   useEffect(() => {
-    console.log("ok1");
     getList();
   }, []);
 
