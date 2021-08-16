@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 // react-redux
 import { connect } from "react-redux";
@@ -18,7 +18,11 @@ import Paging from "./Paging";
 // style
 import "./style/styleTodo.css";
 function Todo(props) {
-  const { todoList, showStatus } = props;
+  const { todoList, showStatus, getList } = props;
+  useEffect(() => {
+    console.log("ok1");
+    getList();
+  }, []);
 
   const [status, setStatus] = useState("All");
 
@@ -88,6 +92,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     showStatus: (status) => {
       dispatch(action.ON_SHOW_STATUS(status));
+    },
+    getList: () => {
+      dispatch(action.ON_GET_LIST_TODO_SAGA());
     },
   };
 };

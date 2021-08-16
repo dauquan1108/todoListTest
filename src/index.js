@@ -16,8 +16,21 @@ import { composeWithDevTools } from "redux-devtools-extension";
 // Store
 import appReducers from "./reducers";
 
+// saga
+import createSagaMiddleware from "redux-saga";
+import mySaga from "./sagas";
+
+// Middleware Saga
+const sagaMiddleware = createSagaMiddleware();
+
 //Tạo store
-const store = createStore(appReducers, composeWithDevTools(applyMiddleware()));
+const store = createStore(
+  appReducers,
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
+);
+// Run Saga
+sagaMiddleware.run(mySaga);
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

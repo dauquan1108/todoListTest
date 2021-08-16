@@ -10,6 +10,10 @@ let todo = [
 
 const Todo = (state = todo, action) => {
   switch (action.type) {
+    case ActionTypes.GET_LIST_TODO:
+      const test = action.payload.todoList;
+      console.log(test);
+      return [...state];
     case ActionTypes.ADD_ITEM_TODO:
       const valueText = action.payload.valueText;
       return [{ id: uuIdv4(), title: valueText, isComplete: false }, ...state];
@@ -18,7 +22,7 @@ const Todo = (state = todo, action) => {
       const valueEdit = action.payload.valueText;
       state.forEach((item) => {
         if (item.id === idEdit) {
-          item.title = `${valueEdit}quaasss`;
+          item.title = valueEdit;
         }
       });
       return [...state];
