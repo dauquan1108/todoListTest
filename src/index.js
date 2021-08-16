@@ -14,7 +14,7 @@ import { Provider } from "react-redux";
 // import { composeWithDevTools } from "redux-devtools-extension";
 
 // Store
-import appReducers from "./store/index";
+import appReducers from "./reducers";
 //Tạo store-
 const store = createStore(appReducers);
 ReactDOM.render(
