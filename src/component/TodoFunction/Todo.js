@@ -24,7 +24,7 @@ function Todo(props) {
 
   const onSetStatus = (status) => {
     setStatus(status);
-    showStatus({ status });
+    showStatus(status);
   };
 
   //search;

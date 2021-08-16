@@ -5,7 +5,6 @@ const ShowStatus = (state) => state.ShowStatus;
 const getTodo = (state) => state.todoList;
 
 export const amountOfUnfinishedWork = createSelector([getTodo], (todo) => {
-  debugger;
   const count = todo.filter((item) => !item.isComplete).length;
   return count;
 });
@@ -13,7 +12,7 @@ export const amountOfUnfinishedWork = createSelector([getTodo], (todo) => {
 export const getVisibleTodo = createSelector(
   [ShowStatus, getTodo],
   (keyWordStatus, todoList) => {
-    switch (keyWordStatus.status || keyWordStatus) {
+    switch (keyWordStatus) {
       case "All":
         return todoList;
       case "Completed":

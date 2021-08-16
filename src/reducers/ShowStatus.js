@@ -1,5 +1,4 @@
 import * as ActionTypes from "../constants/ActionType";
-// id
 
 let status = "All";
 
