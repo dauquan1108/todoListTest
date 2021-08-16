@@ -7,16 +7,17 @@ import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "./themes/theme-context";
 
 //---thu vien Redux
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 
 // npm install --save redux-devtools-extension
-// import { composeWithDevTools } from "redux-devtools-extension";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 // Store
 import appReducers from "./reducers";
-//Tạo store-
-const store = createStore(appReducers);
+
+//Tạo store
+const store = createStore(appReducers, composeWithDevTools(applyMiddleware()));
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
