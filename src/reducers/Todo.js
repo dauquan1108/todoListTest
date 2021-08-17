@@ -1,16 +1,11 @@
 import * as ActionTypes from "../constants/ActionType";
-// id
-import { v4 as uuIdv4 } from "uuid";
-// // axios
-// import axios from "axios";
-// // url api
-// import * as URL from "../Utils/URL";
 
 let todo = [];
 
 const Todo = (state = todo, action) => {
   switch (action.type) {
     case "GET_DATA":
+      console.log(action);
       return [...action.data];
     case "GET_TODO_LIST_AFTER_ADDING_NEW":
       return [...action.dataNew];

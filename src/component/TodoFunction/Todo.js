@@ -2,12 +2,19 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 // react-redux
 import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // selectors
 import { getVisibleTodo } from "../../selectors";
 
 // action
 import * as action from "../../actions";
+
+// axios
+import axios from "axios";
+
+// url
+import * as URL from "../../utils/URL";
 
 // component
 import SearchHeader from "./SearchHeader";
@@ -19,20 +26,35 @@ import Paging from "./Paging";
 import "./style/styleTodo.css";
 function Todo(props) {
   const { todoList, showStatus, getList } = props;
+  const dispatch = useDispatch();
   useEffect(() => {
     getList();
   }, []);
 
   const [status, setStatus] = useState("All");
-
   const onSetStatus = (status) => {
     setStatus(status);
     showStatus(status);
   };
+  // axios
+
+  useEffect(() => {
+    axios
+      .get(URL.API_URL)
+      .then(function (response) {
+        if (response.status === 200) {
+          const data = response.data;
+          console.log("ok", data);
+          dispatch({ type: "GET_DATA", data });
+        }
+      })
+      .catch(function (error) {
+        console.log("Lỗi get data từ Mock API", error);
+      });
+  }, []);
 
   //search;
   const [search, setSearch] = useState("");
-
   const handleChange = (event) => {
     setSearch(event.target.value);
   };

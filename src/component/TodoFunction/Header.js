@@ -8,7 +8,7 @@ import * as action from "../../actions";
 //axios
 import axios from "axios";
 // url api
-import * as URL from "../../Utils/URL";
+import * as URL from "../../utils/Config";
 // id
 import { v4 as uuIdv4 } from "uuid";
 
@@ -18,14 +18,14 @@ function Header(props) {
   const [value, setValue] = useState("");
 
   const handleSubmit = (event) => {
-    const dataFake = {
-      id: uuIdv4(),
-      title: value.trim(),
-      isComplete: false,
-    };
-    onAddDateMock(value.trim(), dataFake.id);
+    // const dataFake = {
+    //   id: uuIdv4(),
+    //   title: value.trim(),
+    //   isComplete: false,
+    // };
+    // onAddDateMock(value.trim(), dataFake.id);
 
-    addItem(dataFake);
+    // addItem(dataFake);
 
     setValue("");
     event.preventDefault();
@@ -34,37 +34,37 @@ function Header(props) {
     setValue(event.target.value);
   };
 
-  const onAddDateMock = (value, id) => {
-    axios({
-      method: "post",
-      url: URL.URL_API,
-      data: {
-        title: value,
-        isComplete: false,
-      },
-    })
-      .then((response) => {
-        console.log("log", response);
-        if (response.status === 201 && id) {
-          const data = response.data;
-          dispatch({ type: "OK_ADD", payload: { data, idFake: id } });
-        }
-      })
-      .catch((error) => {
-        console.log("Lỗi Thêm item: ", error);
-      });
-  };
-  const onGetTodoListAfterAddingNew = () => {
-    axios
-      .get(URL.URL_API)
-      .then(function (response) {
-        console.log(response);
-        return response.data;
-      })
-      .catch(function (error) {
-        console.log("Lỗi get data", error);
-      });
-  };
+  // const onAddDateMock = (value, id) => {
+  //   axios({
+  //     method: "post",
+  //     url: URL.URL_API,
+  //     data: {
+  //       title: value,
+  //       isComplete: false,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       console.log("log", response);
+  //       if (response.status === 201 && id) {
+  //         const data = response.data;
+  //         dispatch({ type: "OK_ADD", payload: { data, idFake: id } });
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log("Lỗi Thêm item: ", error);
+  //     });
+  // };
+  // const onGetTodoListAfterAddingNew = () => {
+  //   axios
+  //     .get(URL.URL_API)
+  //     .then(function (response) {
+  //       console.log(response);
+  //       return response.data;
+  //     })
+  //     .catch(function (error) {
+  //       console.log("Lỗi get data", error);
+  //     });
+  // };
   return (
     <form onSubmit={handleSubmit}>
       <input
