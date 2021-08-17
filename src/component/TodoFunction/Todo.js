@@ -44,7 +44,6 @@ function Todo(props) {
       .then(function (response) {
         if (response.status === 200) {
           const data = response.data;
-          console.log("ok", data);
           dispatch({ type: "GET_DATA", data });
         }
       })

@@ -5,10 +5,17 @@ let todo = [];
 const Todo = (state = todo, action) => {
   switch (action.type) {
     case "GET_DATA":
-      console.log(action);
       return [...action.data];
-    case "GET_TODO_LIST_AFTER_ADDING_NEW":
-      return [...action.dataNew];
+    case "OK_ADD":
+      console.log("x:", action.payload.data, action.payload.idFake);
+      state.forEach((item) => {
+        if (item.id === action.payload.idFake) {
+          item.id = action.payload.data.id;
+          item.title = action.payload.data.title;
+          item.isComplete = action.payload.data.isComplete;
+        }
+      });
+      return [...state];
     case ActionTypes.ADD_ITEM_TODO:
       const data = action.payload.data;
       return [...state, data];
@@ -35,12 +42,6 @@ const Todo = (state = todo, action) => {
     case ActionTypes.CLEAR_COMPLETED:
       const onCompleted = state.filter((item) => !item.isComplete);
       return [...onCompleted];
-    case "OK_ADD":
-      // const onCompleted = state.filter((item) => !item.isComplete);
-      // Tim vij tri
-      // Lap du lie mo vao
-      console.log("x:", action.payload.data, action.payload.idFake);
-      return [...state];
     default:
       return [...state];
   }

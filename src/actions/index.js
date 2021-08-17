@@ -10,12 +10,12 @@ export const ON_GET_LIST_TODO = (todoList) => {
 };
 
 // Header
-export const ON_ADD_ITEM_TODO = (valueText) => {
+export const ON_ADD_ITEM_TODO = (data) => {
   return {
     type: ActionTypes.ADD_ITEM_TODO,
-    // payload: {
-    valueText,
-    // },
+    payload: {
+      data,
+    },
   };
 };
 

@@ -6,6 +6,11 @@ import { ThemeContext } from "../../themes/theme-context";
 import { connect } from "react-redux";
 // action
 import * as action from "../../actions";
+// axios
+import axios from "axios";
+
+// url
+import * as URL from "../../utils/URL";
 function ViewItem(props) {
   const { item, deleteItem, editItem, title, checkIsComplete, isComplete } =
     props;
@@ -20,6 +25,7 @@ function ViewItem(props) {
   const [text, setText] = useState(title);
 
   const handleSubmit = (event) => {
+    onEditItemMock(item.id, text);
     editItem(item.id, text);
     event.preventDefault();
   };
@@ -29,13 +35,46 @@ function ViewItem(props) {
   };
 
   const onCheckStatus = () => {
+    onStatusMock(item.id);
     checkIsComplete(item.id);
   };
 
   const onDeleteItem = () => {
+    onDeleteMock(item.id);
     deleteItem(item.id);
   };
 
+  // axios
+  const onStatusMock = (id) => {
+    axios({
+      method: "put",
+      url: `${URL.API_URL}/${id}`,
+      data: {
+        isComplete: !isComplete,
+      },
+    }).catch((error) => {
+      console.log("Sửa status thất bại: ", error);
+    });
+  };
+  const onEditItemMock = (id, value) => {
+    axios({
+      method: "put",
+      url: `${URL.API_URL}/${id}`,
+      data: {
+        title: value,
+      },
+    }).catch((error) => {
+      console.log("Sửa item thất bại: ", error);
+    });
+  };
+  const onDeleteMock = (id) => {
+    axios({
+      method: "delete",
+      url: `${URL.API_URL}/${id}`,
+    }).catch((error) => {
+      console.log("Xóa item thất bại: ", error);
+    });
+  };
   return (
     <div
       className="headerTodo"
