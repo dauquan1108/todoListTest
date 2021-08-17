@@ -14,7 +14,7 @@ import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 // Store
-import appReducers from "./reducers";
+import appReducers from "./stores";
 
 // saga
 import createSagaMiddleware from "redux-saga";

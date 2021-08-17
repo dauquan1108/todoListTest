@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import Todo from "./Todo";
-import ShowStatus from "./ShowStatus";
+import Todo from "../reducers/Todo";
+import ShowStatus from "../reducers/ShowStatus";
 
 const appReducers = combineReducers({
   todoList: Todo,

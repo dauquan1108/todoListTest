@@ -7,7 +7,7 @@ const Todo = (state = todo, action) => {
     case "GET_DATA":
       return [...action.data];
     case "OK_ADD":
-      console.log("x:", action.payload.data, action.payload.idFake);
+      // console.log("x:", action.payload.data, action.payload.idFake);
       state.forEach((item) => {
         if (item.id === action.payload.idFake) {
           item.id = action.payload.data.id;
