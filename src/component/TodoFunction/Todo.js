@@ -96,7 +96,7 @@ function Todo(props) {
         currentPage={currentPage}
         chosePage={chosePage}
       />
-      <Footer onSetStatus={onSetStatus} status={status} />
+      <Footer onSetStatus={onSetStatus} status={status} todoList={todoList} />
     </div>
   );
 }
