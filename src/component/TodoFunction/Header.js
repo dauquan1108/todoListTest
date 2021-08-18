@@ -42,7 +42,6 @@ function Header(props) {
       },
     })
       .then((response) => {
-        // console.log("log", response);
         if (response.status === 201 && id) {
           const data = response.data;
           dispatch({ type: "OK_ADD", payload: { data, idFake: id } });

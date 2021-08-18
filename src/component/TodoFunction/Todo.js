@@ -39,6 +39,7 @@ function Todo(props) {
   // axios
 
   useEffect(() => {
+    debugger;
     axios
       .get(URL.API_URL)
       .then(function (response) {
@@ -104,6 +105,7 @@ function Todo(props) {
 const mapStateToProps = (state) => {
   return {
     todoList: getVisibleTodo(state),
+    // todoList: state.todoList,
     showStatus: state.ShowStatus,
   };
 };
