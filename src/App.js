@@ -1,7 +1,8 @@
 import React from "react";
 import "./App.css";
 // import MainTodo from "./component/classComponent/MainTodo";
-import Todo from "./component/TodoFunction/Todo";
+// import Todo from "./component/TodoFunction/Todo";
+import TodoReduxToolkit from "./component/TodoFunctionReduxToolKit/TodoReduxToolkit";
 import { ThemeContext } from "./themes/theme-context";
 
 function App() {
@@ -25,8 +26,9 @@ function App() {
       >
         Color {dark ? "Dark" : "Light"} theme
       </button>
-      <Todo />
+      {/* <Todo /> */}
       {/* <MainTodo /> */}
+      <TodoReduxToolkit />
     </div>
   );
 }
