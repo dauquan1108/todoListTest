@@ -4,23 +4,29 @@ import PropTypes from "prop-types";
 import { ThemeContext } from "../../themes/theme-context";
 // selector
 import { amountOfUnfinishedWork } from "../../selectors";
-// redux
-import { connect } from "react-redux";
-// action
-import * as action from "../../actions";
 // URL
 import * as URL from "../../utils/URL";
 //axios
 import axios from "axios";
+import { useState } from "react";
+// redux
+import { useDispatch } from "react-redux";
+// redux toolkit
+import { editStatus } from "./reducersSlice";
+
+import { clearItemIsComplete } from "./reducersSlice";
 
 function Footer(props) {
-  const { onSetStatus, status, countItem, ClearCompleted, todoList } = props;
+  const dispatch = useDispatch();
+  const { todoList } = props;
+  const [status, setStatus] = useState("All");
   const SetStatus = (event) => {
-    onSetStatus(event);
+    setStatus(event);
+    dispatch(editStatus(event));
   };
   const onClearCompleted = () => {
     onClearCompletedMock();
-    ClearCompleted();
+    dispatch(clearItemIsComplete());
   };
   //axios
   const onClearCompletedMock = () => {
@@ -38,7 +44,7 @@ function Footer(props) {
   const { theme } = React.useContext(ThemeContext);
   return (
     <div className="footer">
-      <samp style={{ fontSize: 15, fontWeight: "bold" }}>{countItem}</samp>
+      {/* <samp style={{ fontSize: 15, fontWeight: "bold" }}>{countItem}</samp> */}
       <button
         style={{
           backgroundColor: status === "All" ? "red" : theme.backgroundColor,
@@ -77,19 +83,7 @@ function Footer(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    countItem: amountOfUnfinishedWork(state),
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    ClearCompleted: () => {
-      dispatch(action.ON_CLEAR_COMPLETED());
-    },
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Footer);
+export default Footer;
 
 Footer.propTypes = {
   SetStatus: PropTypes.func,

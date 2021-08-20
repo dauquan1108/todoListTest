@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+// redux toolkit
+import { addTodoList, editAddDataTodoList } from "./reducersSlice";
 // redux
-import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
 // action
-import * as action from "../../actions";
 //axios
 import axios from "axios";
 // url
@@ -13,7 +13,6 @@ import * as URL from "../../utils/URL";
 import { v4 as uuIdv4 } from "uuid";
 
 function Header(props) {
-  const { addItem } = props;
   const dispatch = useDispatch();
   const [value, setValue] = useState("");
 
@@ -25,7 +24,7 @@ function Header(props) {
     };
     event.preventDefault();
     onAddDateMock(value.trim(), dataFake.id);
-    addItem(dataFake);
+    dispatch(addTodoList(dataFake));
     setValue("");
   };
   const handleChange = (event) => {
@@ -44,7 +43,11 @@ function Header(props) {
       .then((response) => {
         if (response.status === 201 && id) {
           const data = response.data;
-          dispatch({ type: "OK_ADD", payload: { data, idFake: id } });
+          const information = {
+            data,
+            id,
+          };
+          dispatch(editAddDataTodoList(information));
         }
       })
       .catch((error) => {
@@ -63,15 +66,7 @@ function Header(props) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addItem: (valueText) => {
-      dispatch(action.ON_ADD_ITEM_TODO(valueText));
-    },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(Header);
+export default Header;
 
 Header.propTypes = {
   handleSubmit: PropTypes.func,

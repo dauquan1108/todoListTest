@@ -2,18 +2,21 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 // theme
 import { ThemeContext } from "../../themes/theme-context";
-// redux
-import { connect } from "react-redux";
-// action
-import * as action from "../../actions";
+// reducer redux toolkit
+import {
+  editStatusTodoList,
+  editItemTodoList,
+  deleteItemTodoList,
+} from "./reducersSlice";
 // axios
 import axios from "axios";
-
 // url
 import * as URL from "../../utils/URL";
+// useDispatch
+import { useDispatch } from "react-redux";
 function ViewItem(props) {
-  const { item, deleteItem, editItem, title, checkIsComplete, isComplete } =
-    props;
+  const dispatch = useDispatch();
+  const { item, title, isComplete } = props;
 
   //theme
   const { theme } = React.useContext(ThemeContext);
@@ -26,7 +29,12 @@ function ViewItem(props) {
 
   const handleSubmit = (event) => {
     onEditItemMock(item.id, text);
-    editItem(item.id, text);
+    const id = item.id;
+    const value = {
+      id,
+      text,
+    };
+    dispatch(editItemTodoList(value));
     event.preventDefault();
   };
 
@@ -36,12 +44,12 @@ function ViewItem(props) {
 
   const onCheckStatus = () => {
     onStatusMock(item.id);
-    checkIsComplete(item.id);
+    dispatch(editStatusTodoList(item.id));
   };
 
   const onDeleteItem = () => {
     onDeleteMock(item.id);
-    deleteItem(item.id);
+    dispatch(deleteItemTodoList(item.id));
   };
 
   // axios
@@ -115,21 +123,7 @@ function ViewItem(props) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    editItem: (idItem, valueText) => {
-      dispatch(action.ON_EDIT_ITEM_TODO(idItem, valueText));
-    },
-    deleteItem: (idItem) => {
-      dispatch(action.ON_DELETE_ITEM_TODO(idItem));
-    },
-    checkIsComplete: (idItem) => {
-      dispatch(action.ON_CHECK_IS_COMPLETE(idItem));
-    },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(ViewItem);
+export default ViewItem;
 
 ViewItem.prototype = {
   handleSubmit: PropTypes.func,
