@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 // theme
 import { ThemeContext } from "../../themes/theme-context";
 // selector
-import { amountOfUnfinishedWork } from "../../selectors";
+import { getCountTodoIsCompleted } from "../../selectors/TodoSelectors";
 // URL
 import * as URL from "../../utils/URL";
 //axios
 import axios from "axios";
 import { useState } from "react";
 // redux
-import { useDispatch } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 // redux toolkit
 import { editStatus } from "./reducersSlice";
 
@@ -18,7 +18,7 @@ import { clearItemIsComplete } from "./reducersSlice";
 
 function Footer(props) {
   const dispatch = useDispatch();
-  const { todoList } = props;
+  const { todoList, countTodoReduxToolkit } = props;
   const [status, setStatus] = useState("All");
   const SetStatus = (event) => {
     setStatus(event);
@@ -44,7 +44,9 @@ function Footer(props) {
   const { theme } = React.useContext(ThemeContext);
   return (
     <div className="footer">
-      {/* <samp style={{ fontSize: 15, fontWeight: "bold" }}>{countItem}</samp> */}
+      <samp style={{ fontSize: 15, fontWeight: "bold" }}>
+        {countTodoReduxToolkit}
+      </samp>
       <button
         style={{
           backgroundColor: status === "All" ? "red" : theme.backgroundColor,
@@ -83,9 +85,18 @@ function Footer(props) {
   );
 }
 
-export default Footer;
+const mapStateToProps = (state) => {
+  return {
+    countTodoReduxToolkit: getCountTodoIsCompleted(state),
+  };
+};
+
+export default connect(mapStateToProps)(Footer);
 
 Footer.propTypes = {
   SetStatus: PropTypes.func,
   onClearCompleted: PropTypes.func,
+};
+Footer.defaultPros = {
+  countTodoReduxToolkit: 0,
 };

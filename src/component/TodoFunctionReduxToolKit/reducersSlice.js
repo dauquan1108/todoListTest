@@ -13,12 +13,13 @@ export const todo = createSlice({
     addTodoList: (state, data) => {
       const item = data.payload;
       state.todo.push(item);
+      console.log("state", state.todo);
     },
     editAddDataTodoList: (state, information) => {
       const data = information.payload.data;
       const idPack = information.payload.id;
       const item = state.todo.find((item) => item.id === idPack);
-      if (todo) {
+      if (item) {
         item.id = data.id;
         item.title = data.title;
         item.isComplete = false;

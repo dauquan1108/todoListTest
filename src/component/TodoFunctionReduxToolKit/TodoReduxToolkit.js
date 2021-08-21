@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 // react-redux
 import { connect } from "react-redux";
-// import { useDispatch } from "react-redux";
 
 // selectors
-import { getVisibleTodo } from "../../selectors";
+import { getActiveTodo } from "../../selectors/TodoSelectors";
 
 // axios
 import axios from "axios";
@@ -21,6 +20,7 @@ import Footer from "./FooterReduxToolkit";
 import Paging from "./PagingReduxToolkit";
 // redux toolkit
 import { getDataTodo } from "./reducersSlice";
+
 // style
 import "./style/styleTodoReduxToolkit.css";
 
@@ -29,7 +29,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { todoListToolkit } from "./reducersSlice";
 
 function Todo(props) {
-  const { showStatus } = props;
+  const { todoListReduxToolkit } = props;
   const dispatch = useDispatch();
 
   // redux toolkit
@@ -55,7 +55,7 @@ function Todo(props) {
   const handleChange = (event) => {
     setSearch(event.target.value);
   };
-  const keyWordSearch = todoListNewToolkit.filter((item) => {
+  const keyWordSearch = todoListReduxToolkit.filter((item) => {
     return item.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
   });
 
@@ -98,8 +98,13 @@ function Todo(props) {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    todoListReduxToolkit: getActiveTodo(state),
+  };
+};
 
-export default Todo;
+export default connect(mapStateToProps, null)(Todo);
 Todo.propTypes = {
   onSetStatus: PropTypes.func,
   handleChange: PropTypes.func,
