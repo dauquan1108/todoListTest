@@ -31,6 +31,11 @@ function Header(props) {
     setValue(event.target.value);
   };
 
+  const [ketCode, setKeyCode] = useState("");
+  const onKeyDownTest = (event) => {
+    setKeyCode(event.keyCode);
+  };
+
   const onAddDateMock = (value, id) => {
     axios({
       method: "post",
@@ -55,14 +60,18 @@ function Header(props) {
       });
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={value}
-        onChange={handleChange}
-        placeholder="Vui lòng nhập"
-      />
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={value}
+          onChange={handleChange}
+          placeholder="Vui lòng nhập"
+          onKeyDown={onKeyDownTest}
+        />
+      </form>
+      <p>keyCode {ketCode}</p>
+    </>
   );
 }
 
