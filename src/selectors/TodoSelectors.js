@@ -11,6 +11,10 @@ export const getCountTodoIsCompleted = createSelector(
   }
 );
 
+export const showClearComplete = createSelector([getDataTodo], (todoList) => {
+  return todoList.some((item) => item.isComplete);
+});
+
 export const getActiveTodo = createSelector(
   [getStatus, getDataTodo],
   (keyWordStatus, todoList) => {

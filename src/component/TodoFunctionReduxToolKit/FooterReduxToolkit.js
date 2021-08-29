@@ -15,10 +15,12 @@ import { useDispatch, connect } from "react-redux";
 import { editStatus } from "./reducersSlice";
 
 import { clearItemIsComplete } from "./reducersSlice";
+// selectors
+import { showClearComplete } from "../../selectors/TodoSelectors";
 
 function Footer(props) {
   const dispatch = useDispatch();
-  const { todoList, countTodoReduxToolkit } = props;
+  const { todoList, countTodoReduxToolkit, showClearComplete } = props;
   const [status, setStatus] = useState("All");
   const SetStatus = (event) => {
     setStatus(event);
@@ -75,12 +77,14 @@ function Footer(props) {
       >
         Completed
       </button>
-      <button
-        style={{ color: theme.color, backgroundColor: theme.backgroundColor }}
-        onClick={onClearCompleted}
-      >
-        Clear completed
-      </button>
+      {showClearComplete && (
+        <button
+          style={{ color: theme.color, backgroundColor: theme.backgroundColor }}
+          onClick={onClearCompleted}
+        >
+          Clear completed
+        </button>
+      )}
     </div>
   );
 }
@@ -88,6 +92,7 @@ function Footer(props) {
 const mapStateToProps = (state) => {
   return {
     countTodoReduxToolkit: getCountTodoIsCompleted(state),
+    showClearComplete: showClearComplete(state),
   };
 };
 
