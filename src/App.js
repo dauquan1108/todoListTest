@@ -7,6 +7,17 @@ import { ThemeContext } from "./themes/theme-context";
 
 function App() {
   const { theme, toggle, dark } = React.useContext(ThemeContext);
+
+  const [offset, setOffset] = React.useState(0);
+
+  React.useEffect(() => {
+    window.onscroll = () => {
+      setOffset(window.pageYOffset);
+    };
+  }, []);
+
+  console.log(Math.round(offset));
+
   return (
     <div
       className="App"
@@ -26,6 +37,7 @@ function App() {
       >
         Color {dark ? "Dark" : "Light"} theme
       </button>
+      <p>check hiện tượng onscroll trong reactjs{offset}</p>
       {/* <Todo /> */}
       {/* <MainTodo /> */}
       <TodoReduxToolkit />

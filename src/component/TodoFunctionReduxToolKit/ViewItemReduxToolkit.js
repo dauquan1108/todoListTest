@@ -14,9 +14,11 @@ import axios from "axios";
 import * as URL from "../../utils/URL";
 // useDispatch
 import { useDispatch } from "react-redux";
+// component
+import Error from "./Error";
 function ViewItem(props) {
   const dispatch = useDispatch();
-  const { item, title, isComplete } = props;
+  const { item, title, isComplete, getIdError } = props;
 
   //theme
   const { theme } = React.useContext(ThemeContext);
@@ -80,7 +82,8 @@ function ViewItem(props) {
       method: "delete",
       url: `${URL.API_URL}/${id}`,
     }).catch((error) => {
-      console.log("Xóa item thất bại: ", error);
+      console.log("Xóa item thất bại: ", id, ": ", error);
+      getIdError(id);
     });
   };
   return (

@@ -70,7 +70,7 @@ function Header(props) {
           onKeyDown={onKeyDownTest}
         />
       </form>
-      <p>keyCode {ketCode}</p>
+      <h5>keyCode {ketCode}</h5>
     </>
   );
 }

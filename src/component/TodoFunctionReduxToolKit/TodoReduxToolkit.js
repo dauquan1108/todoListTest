@@ -59,6 +59,12 @@ function Todo(props) {
     return item.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
   });
 
+  // lay id bi loi
+  const [idItem, setIdItem] = useState();
+  const getIdError = (id) => {
+    setIdItem(id);
+  };
+
   // Phan trang
   const [currentPage, setCurrentPage] = useState(1);
   const [newsPerPage, setNewsPerPage] = useState(5);
@@ -68,6 +74,8 @@ function Todo(props) {
   const renderTodo = currentTodo.map((item) => {
     return (
       <ViewItem
+        //lay id cua item bi loi
+        getIdError={getIdError}
         key={item.id}
         item={item}
         title={item.title}
@@ -94,7 +102,11 @@ function Todo(props) {
         currentPage={currentPage}
         chosePage={chosePage}
       />
-      <Footer todoList={todoListNewToolkit} />
+      <Footer
+        todoList={todoListNewToolkit}
+        getIdError={getIdError}
+        idItem={idItem}
+      />
     </div>
   );
 }

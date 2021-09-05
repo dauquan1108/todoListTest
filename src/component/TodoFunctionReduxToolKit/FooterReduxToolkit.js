@@ -17,10 +17,12 @@ import { editStatus } from "./reducersSlice";
 import { clearItemIsComplete } from "./reducersSlice";
 // selectors
 import { showClearComplete } from "../../selectors/TodoSelectors";
+// component
+import Error from "./Error";
 
 function Footer(props) {
   const dispatch = useDispatch();
-  const { todoList, countTodoReduxToolkit, showClearComplete } = props;
+  const { todoList, countTodoReduxToolkit, showClearComplete, idItem } = props;
   const [status, setStatus] = useState("All");
   const SetStatus = (event) => {
     setStatus(event);
@@ -85,6 +87,7 @@ function Footer(props) {
           Clear completed
         </button>
       )}
+      <Error id={idItem} />
     </div>
   );
 }
