@@ -18,6 +18,7 @@ import Header from "./HeaderReduxToolkit";
 import ViewItem from "./ViewItemReduxToolkit";
 import Footer from "./FooterReduxToolkit";
 import Paging from "./PagingReduxToolkit";
+import Test from "./Test";
 // redux toolkit
 import { getDataTodo } from "./reducersSlice";
 
@@ -71,17 +72,31 @@ function Todo(props) {
   const indexOfLastNews = currentPage * newsPerPage;
   const indexOfFirstNews = indexOfLastNews - newsPerPage;
   const currentTodo = keyWordSearch.slice(indexOfFirstNews, indexOfLastNews);
-  const renderTodo = currentTodo.map((item) => {
-    return (
-      <ViewItem
-        //lay id cua item bi loi
-        getIdError={getIdError}
-        key={item.id}
-        item={item}
-        title={item.title}
-        isComplete={item.isComplete}
-      />
-    );
+  const renderTodo = currentTodo.map((item, index) => {
+    if (index === 3 || index === 4) {
+      return (
+        <div key={item.id}>
+          <Test text="Quảng cáo" />
+          <ViewItem
+            getIdError={getIdError}
+            key={item.id}
+            item={item}
+            title={item.title}
+            isComplete={item.isComplete}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <ViewItem
+          getIdError={getIdError}
+          key={item.id}
+          item={item}
+          title={item.title}
+          isComplete={item.isComplete}
+        />
+      );
+    }
   });
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(keyWordSearch.length / newsPerPage); i++) {
