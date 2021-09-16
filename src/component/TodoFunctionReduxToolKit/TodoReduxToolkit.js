@@ -73,21 +73,9 @@ function Todo(props) {
   const indexOfFirstNews = indexOfLastNews - newsPerPage;
   const currentTodo = keyWordSearch.slice(indexOfFirstNews, indexOfLastNews);
   const renderTodo = currentTodo.map((item, index) => {
-    if (index === 3 || index === 4) {
-      return (
-        <div key={item.id}>
-          <Test text="Quảng cáo" />
-          <ViewItem
-            getIdError={getIdError}
-            key={item.id}
-            item={item}
-            title={item.title}
-            isComplete={item.isComplete}
-          />
-        </div>
-      );
-    } else {
-      return (
+    return (
+      <div key={item.id}>
+        {(index === 3 || index === 4) && <Test text="Quảng cáo" />}
         <ViewItem
           getIdError={getIdError}
           key={item.id}
@@ -95,8 +83,8 @@ function Todo(props) {
           title={item.title}
           isComplete={item.isComplete}
         />
-      );
-    }
+      </div>
+    );
   });
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(keyWordSearch.length / newsPerPage); i++) {
